@@ -2,43 +2,114 @@
 	<form action="" class="form">
 		<input class="form__input" id="cuid" name="cuid" type="hidden" value="1234">
 		<fieldset class="form__fieldset">
-			<input class="form__input" id="surname">
-			<label class="form__label" for="surname">Фамилия</label>
-		</fieldset>
-		<fieldset class="form__fieldset">
-			<input class="form__input" id="name" name="name" type="text">
-			<label class="form__label" for="name">Имя</label>
-		</fieldset>
-		<fieldset class="form__fieldset">
-			<input class="form__input" id="middle_name" name="middle_name" type="text">
-			<label class="form__label" for="middle_name">Отчество</label>
-		</fieldset>
-		<fieldset class="form__fieldset">
-			<validation-provider rules="required|email" v-slot="{ errors, changed }" name="email" tag="div">
+			<validation-provider rules="required|min:5" v-slot="{ errors, changed, valid, validated }" name="Фамилия" tag="div">
 				<input
-						:class="{
-							'form__input':'form__input',
-							'is-active': changed
-						}"
-						v-model="email"
-						id="email"
-						name="email"
-						type="email">
-				<label class="form__label" for="email">Email</label>
+					:class="{
+						'form__input':'form__input',
+						'is-active': changed,
+						'is-error': !valid && validated
+					}"
+					v-model="surname"
+					id="surname">
+				<label class="form__label" for="surname">Фамилия</label>
 				<span class="form__error">{{ errors[0] }}</span>
 			</validation-provider>
 		</fieldset>
 		<fieldset class="form__fieldset">
-			<input class="form__input" id="phone" name="phone" type="tel">
-			<label class="form__label" for="phone">Телефон</label>
+			<validation-provider rules="required|min:5" v-slot="{ errors, changed, valid, validated }" name="Имя" tag="div">
+				<input
+					:class="{
+						'form__input':'form__input',
+						'is-active': changed,
+						'is-error': !valid && validated
+					}"
+					v-model="name"
+					id="name"
+					name="name"
+					type="text">
+				<label class="form__label" for="name">Имя</label>
+				<span class="form__error">{{ errors[0] }}</span>
+			</validation-provider>
 		</fieldset>
 		<fieldset class="form__fieldset">
-			<input class="form__input" id="organization" name="organization" type="text">
-			<label class="form__label" for="organization">Организация</label>
+			<validation-provider rules="required|min:5" v-slot="{ errors, changed, valid, validated }" name="Отчество" tag="div">
+				<input
+					:class="{
+						'form__input':'form__input',
+						'is-active': changed,
+						'is-error': !valid && validated
+					}"
+					v-model="middleName"
+					id="middle_name"
+					name="middle_name"
+					type="text">
+				<label class="form__label" for="middle_name">Отчество</label>
+				<span class="form__error">{{ errors[0] }}</span>
+			</validation-provider>
 		</fieldset>
 		<fieldset class="form__fieldset">
-			<input class="form__input" id="password" name="password" type="password">
-			<label class="form__label" for="password">Пароль</label>
+			<validation-provider rules="required|email" v-slot="{ errors, changed, valid, validated }" name="Электронная почта" tag="div">
+				<input
+					:class="{
+						'form__input':'form__input',
+						'is-active': changed,
+						'is-error': !valid && validated
+					}"
+					v-model="email"
+					id="email"
+					name="email"
+					type="email">
+				<label class="form__label" for="email">Электронная почта</label>
+				<span class="form__error">{{ errors[0] }}</span>
+			</validation-provider>
+		</fieldset>
+		<fieldset class="form__fieldset">
+			<validation-provider rules="required|min:5" v-slot="{ errors, changed, valid, validated }" name="Телефон" tag="div">
+				<input
+					:class="{
+						'form__input':'form__input',
+						'is-active': changed,
+						'is-error': !valid && validated
+					}"
+					v-model="phone"
+					id="phone"
+					name="phone"
+					type="tel">
+				<label class="form__label" for="phone">Телефон</label>
+				<span class="form__error">{{ errors[0] }}</span>
+			</validation-provider>
+		</fieldset>
+		<fieldset class="form__fieldset">
+			<validation-provider rules="required|min:5" v-slot="{ errors, changed, valid, validated }" name="Организация" tag="div">
+				<input
+					:class="{
+						'form__input':'form__input',
+						'is-active': changed,
+						'is-error': !valid && validated
+					}"
+					v-model="organization"
+					id="organization"
+					name="organization"
+					type="text">
+				<label class="form__label" for="organization">Организация</label>
+				<span class="form__error">{{ errors[0] }}</span>
+			</validation-provider>
+		</fieldset>
+		<fieldset class="form__fieldset">
+			<validation-provider rules="required|min:5" v-slot="{ errors, changed, valid, validated }" name="Пароль" tag="div">
+				<input
+					:class="{
+						'form__input':'form__input',
+						'is-active': changed,
+						'is-error': !valid && validated
+					}"
+					v-model="password"
+					id="password"
+					name="password"
+					type="password">
+				<label class="form__label" for="password">Пароль</label>
+				<span class="form__error">{{ errors[0] }}</span>
+			</validation-provider>
 		</fieldset>
 		<input class="form__button" type="submit" value="Отправить">
 	</form>
@@ -49,31 +120,24 @@
 		name: "CrmForm",
 		data() {
 			return {
+				surname: '',
+				name: '',
+				middleName: '',
+				phone: '',
+				organization: '',
+				password: '',
 				email: ''
 			}
 		},
 		methods: {
-			onFocus(event) {
-				const target = event.target;
-				console.log(event);
-			}
 		},
 		computed: {
-			isFormDirty() {
-				if (!this.fields['$scopeName']) {
-					return false;
-				}
-				return Object.keys(this.fields['$scopeName']).some(key => this.fields['$scopeName'][key].dirty);
-			}
 		}
 	}
 </script>
 
 <style lang="stylus">
 	.form
-		width 700px
-		margin 0 auto
-		/*border: 1px solid red*/
 		&__fieldset
 			position relative
 			margin 0 0 30px 0
@@ -103,6 +167,8 @@
 				~ .form__label
 					font-size 11px
 					transform translateY(-7px)
+			&.is-error
+				border-color red
 		&__error
 			position absolute
 			left 0
@@ -118,4 +184,5 @@
 			border none
 			border-radius 3px
 			background-color #c00
+			cursor pointer
 </style>

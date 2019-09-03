@@ -1,6 +1,10 @@
 <template>
-	<div id="form">
-		<CrmForm/>
+	<div class="wrapper">
+		<h1>Создание портального пользователя</h1>
+		<div id="form">
+			<h1></h1>
+			<CrmForm/>
+		</div>
 	</div>
 </template>
 
@@ -26,9 +30,11 @@
 	*:after
 		box-sizing inherit
 
-	#form
+	.wrapper
 		display flex
 		flex-direction column
 		justify-content center
+		width 700px
+		margin 0 auto
 		min-height 100vh
 </style>
