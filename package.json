@@ -9,6 +9,9 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
+    "stylus": "^0.54.7",
+    "stylus-loader": "^3.0.2",
+    "vee-validate": "^3.0.3",
     "vue": "^2.6.10"
   },
   "devDependencies": {

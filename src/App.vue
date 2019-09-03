@@ -1,28 +1,34 @@
 <template>
-	<div id="app">
-		<img alt="Vue logo" src="./assets/logo.png">
-		<HelloWorld msg="Welcome to Your Vue.js App"/>
+	<div id="form">
+		<CrmForm/>
 	</div>
 </template>
 
 <script>
-	import HelloWorld from './components/HelloWorld.vue'
+	import CrmForm from "./components/CrmForm";
 
 	export default {
 		name: 'app',
 		components: {
-			HelloWorld
+			CrmForm
 		}
 	}
 </script>
 
-<style>
-	#app {
-		font-family: 'Avenir', Helvetica, Arial, sans-serif;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		text-align: center;
-		color: #2c3e50;
-		margin-top: 60px;
-	}
+<style lang="stylus">
+	body
+		margin 0
+		box-sizing border-box
+		font-family Arial, sans-serif
+
+	*
+	*:before
+	*:after
+		box-sizing inherit
+
+	#form
+		display flex
+		flex-direction column
+		justify-content center
+		min-height 100vh
 </style>
