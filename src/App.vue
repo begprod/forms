@@ -1,8 +1,7 @@
 <template>
 	<div class="wrapper">
-		<h1>Создание портального пользователя</h1>
+		<h1>Создание пользователя</h1>
 		<div id="form">
-			<h1></h1>
 			<CrmForm/>
 		</div>
 	</div>

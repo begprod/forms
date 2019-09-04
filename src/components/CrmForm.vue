@@ -1,27 +1,29 @@
 <template>
-	<form action="" class="form">
-		<input class="form__input" id="cuid" name="cuid" type="hidden" value="1234">
-		<fieldset class="form__fieldset">
-			<validation-provider rules="required|min:5" v-slot="{ errors, changed, valid, validated }" name="Фамилия" tag="div">
+	<ValidationObserver ref="observer" class="form" v-slot="{ valid }" tag="form">
+		<input class="form__input" id="clientId" name="clientId" type="hidden" value="1234">
+		<validation-provider rules="required|min:3" v-slot="{ errors, required, changed, invalid }" name="фамилия" slim>
+			<fieldset class="form__fieldset">
 				<input
 					:class="{
 						'form__input':'form__input',
 						'is-active': changed,
-						'is-error': !valid && validated
+						'is-error': invalid,
+						'is-required': required
 					}"
 					v-model="surname"
 					id="surname">
 				<label class="form__label" for="surname">Фамилия</label>
 				<span class="form__error">{{ errors[0] }}</span>
-			</validation-provider>
-		</fieldset>
-		<fieldset class="form__fieldset">
-			<validation-provider rules="required|min:5" v-slot="{ errors, changed, valid, validated }" name="Имя" tag="div">
+			</fieldset>
+		</validation-provider>
+		<validation-provider rules="required|min:3" v-slot="{ errors, required, changed, invalid }" name="имя" slim>
+			<fieldset class="form__fieldset">
 				<input
 					:class="{
 						'form__input':'form__input',
 						'is-active': changed,
-						'is-error': !valid && validated
+						'is-error': invalid,
+						'is-required': required
 					}"
 					v-model="name"
 					id="name"
@@ -29,15 +31,15 @@
 					type="text">
 				<label class="form__label" for="name">Имя</label>
 				<span class="form__error">{{ errors[0] }}</span>
-			</validation-provider>
-		</fieldset>
-		<fieldset class="form__fieldset">
-			<validation-provider rules="required|min:5" v-slot="{ errors, changed, valid, validated }" name="Отчество" tag="div">
+			</fieldset>
+		</validation-provider>
+		<validation-provider rules="min:3" v-slot="{ errors, required, changed, invalid }" name="отчество" slim>
+			<fieldset class="form__fieldset">
 				<input
 					:class="{
 						'form__input':'form__input',
 						'is-active': changed,
-						'is-error': !valid && validated
+						'is-error': invalid
 					}"
 					v-model="middleName"
 					id="middle_name"
@@ -45,15 +47,16 @@
 					type="text">
 				<label class="form__label" for="middle_name">Отчество</label>
 				<span class="form__error">{{ errors[0] }}</span>
-			</validation-provider>
-		</fieldset>
-		<fieldset class="form__fieldset">
-			<validation-provider rules="required|email" v-slot="{ errors, changed, valid, validated }" name="Электронная почта" tag="div">
+			</fieldset>
+		</validation-provider>
+		<validation-provider rules="required|email" v-slot="{ errors, required, changed, invalid }" name="email" slim>
+			<fieldset class="form__fieldset">
 				<input
 					:class="{
 						'form__input':'form__input',
 						'is-active': changed,
-						'is-error': !valid && validated
+						'is-error': invalid,
+						'is-required': required
 					}"
 					v-model="email"
 					id="email"
@@ -61,15 +64,15 @@
 					type="email">
 				<label class="form__label" for="email">Электронная почта</label>
 				<span class="form__error">{{ errors[0] }}</span>
-			</validation-provider>
-		</fieldset>
-		<fieldset class="form__fieldset">
-			<validation-provider rules="required|min:5" v-slot="{ errors, changed, valid, validated }" name="Телефон" tag="div">
+			</fieldset>
+		</validation-provider>
+		<validation-provider :rules="{ regex: /^([+]?[0-9\s-()]{3,25})*$/i, min: 5 }" v-slot="{ errors, required, changed, invalid }" name="телефон" slim>
+			<fieldset class="form__fieldset">
 				<input
 					:class="{
 						'form__input':'form__input',
 						'is-active': changed,
-						'is-error': !valid && validated
+						'is-error': invalid
 					}"
 					v-model="phone"
 					id="phone"
@@ -77,15 +80,16 @@
 					type="tel">
 				<label class="form__label" for="phone">Телефон</label>
 				<span class="form__error">{{ errors[0] }}</span>
-			</validation-provider>
-		</fieldset>
-		<fieldset class="form__fieldset">
-			<validation-provider rules="required|min:5" v-slot="{ errors, changed, valid, validated }" name="Организация" tag="div">
+			</fieldset>
+		</validation-provider>
+		<validation-provider rules="required|min:2" v-slot="{ errors, required, changed, invalid }" name="организация" slim>
+			<fieldset class="form__fieldset">
 				<input
 					:class="{
 						'form__input':'form__input',
 						'is-active': changed,
-						'is-error': !valid && validated
+						'is-error': invalid,
+						'is-required': required
 					}"
 					v-model="organization"
 					id="organization"
@@ -93,15 +97,16 @@
 					type="text">
 				<label class="form__label" for="organization">Организация</label>
 				<span class="form__error">{{ errors[0] }}</span>
-			</validation-provider>
-		</fieldset>
-		<fieldset class="form__fieldset">
-			<validation-provider rules="required|min:5" v-slot="{ errors, changed, valid, validated }" name="Пароль" tag="div">
+			</fieldset>
+		</validation-provider>
+		<validation-provider :rules="{ required: true, regex:  /^(?=\S*[a-z])(?=\S*[A-Z])(?=\S*\d)\S{8,}$/, min: 8 }" v-slot="{ errors, required, changed, invalid }" name="пароль" slim>
+			<fieldset class="form__fieldset">
 				<input
 					:class="{
 						'form__input':'form__input',
 						'is-active': changed,
-						'is-error': !valid && validated
+						'is-error': invalid,
+						'is-required': required
 					}"
 					v-model="password"
 					id="password"
@@ -109,10 +114,14 @@
 					type="password">
 				<label class="form__label" for="password">Пароль</label>
 				<span class="form__error">{{ errors[0] }}</span>
-			</validation-provider>
-		</fieldset>
-		<input class="form__button" type="submit" value="Отправить">
-	</form>
+			</fieldset>
+		</validation-provider>
+			<input
+				:disabled="!valid"
+				class="form__button"
+				type="submit"
+				value="Получить доступ">
+	</ValidationObserver>
 </template>
 
 <script>
@@ -164,9 +173,19 @@
 			border-radius 3px
 			&.is-active
 			&:focus
+				outline none
+				border 1px solid #666
 				~ .form__label
 					font-size 11px
 					transform translateY(-7px)
+			&.is-required
+				~ .form__label
+					&::after
+						content "*"
+						position absolute
+						top 0
+						right -9px
+						color red
 			&.is-error
 				border-color red
 		&__error
@@ -177,6 +196,7 @@
 			color #f00
 		&__button
 			width 100%
+			margin-top 30px
 			padding: 20px 30px 20px 30px
 			font-size 14px
 			font-weight bold
@@ -185,4 +205,8 @@
 			border-radius 3px
 			background-color #c00
 			cursor pointer
+			&:disabled
+				opacity .3
+				cursor default
+				background-color #666
 </style>
