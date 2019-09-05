@@ -1,5 +1,8 @@
 <template>
 	<validation-observer ref="observer" class="form" v-slot="{ valid }" tag="form" v-on:submit.prevent="submitData">
+		<div v-if="status.show" class="form__message">
+			{{ status.message }}
+		</div>
 		<validation-provider rules="required|min:3" v-slot="{ errors, required, changed, invalid }" name="фамилия" slim>
 			<fieldset class="form__fieldset">
 				<input
@@ -117,16 +120,15 @@
 				<span class="form__error">{{ errors[0] }}</span>
 			</fieldset>
 		</validation-provider>
-		<div v-if="status.show" class="form__message">
-			{{ status.message }}
-		</div>
 		<div class="form__footer">
 			<input
 				:disabled="!valid"
 				class="form__button"
 				type="submit"
 				value="Получить доступ"/>
-			<a class="form__link" href="#">Востановить пароль</a>
+			<router-link to="/request-new-password" class="form__link">
+				Востановить пароль
+			</router-link>
 		</div>
 	</validation-observer>
 </template>
@@ -136,8 +138,10 @@
 
 	export default {
 		name: "CrmForm",
+		props: ['xhr'],
 		data() {
 			return {
+				xhrUrl: this.xhr,
 				formData: {
 					surname: '',
 					givenName: '',
@@ -155,14 +159,15 @@
 		},
 		methods: {
 			submitData() {
-				axios.post('http://localhost:8000/crmFormHandler.php', {
+				axios.post(this.xhrUrl, {
 					webFormData: this.formData
 				})
 				.then((response) => {
 					const data = response.data;
 					this.status.show = true;
+					this.resetForm();
 
-					if (data.CheckExistsUserResult) {
+					if (data.result) {
 						this.status.message = 'Ваша заявка отправлена. По окончанию верификации вам будет отправлен Email c подтверждением и ссылкой на Портал самообслуживания.';
 					} else {
 						this.status.message = 'Пользователь уже существует.';
@@ -172,9 +177,19 @@
 					this.status.show = true;
 					this.status.message = 'Кажется что-то пошло не так.';
 				});
+			},
+			resetForm() {
+				this.formData.surname = '';
+				this.formData.givenName =  '';
+				this.formData.middleName =  '';
+				this.formData.phone =  '';
+				this.formData.organization =  '';
+				this.formData.password =  '';
+				this.formData.email =  '';
+				requestAnimationFrame(() => {
+					this.$refs.observer.reset();
+				});
 			}
-		},
-		computed: {
 		}
 	}
 </script>

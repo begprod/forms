@@ -1,18 +1,21 @@
 <template>
 	<validation-observer ref="observer" class="form" v-slot="{ valid }" tag="form" v-on:submit.prevent="submitData">
+		<div v-if="status.show" class="form__message">
+			{{ status.message }}
+		</div>
 		<validation-provider rules="required|email" v-slot="{ errors, required, changed, invalid }" name="email" slim>
 			<fieldset class="form__fieldset">
 				<input
-						:class="{
+					:class="{
 						'form__input':'form__input',
 						'is-active': changed,
 						'is-error': invalid,
 						'is-required': required
 					}"
-						v-model="formData.email"
-						name="email"
-						id="email"
-						type="email">
+					v-model="formData.email"
+					name="email"
+					id="email"
+					type="email">
 				<label class="form__label" for="email">Электронная почта</label>
 				<span class="form__error">{{ errors[0] }}</span>
 			</fieldset>
@@ -30,8 +33,10 @@
 
 	export default {
 		name: "RequestResetPassword",
+		props: ['xhr'],
 		data() {
 			return {
+				xhrUrl: this.xhr,
 				formData: {
 					email: ''
 				},
@@ -43,18 +48,30 @@
 		},
 		methods: {
 			submitData() {
-				axios.post('http://localhost:8000/resetPasswordHandler.php', {
+				axios.post(this.xhrUrl, {
 					resetPasswordFormData: this.formData
 				})
 					.then((response) => {
+						const data = response.data;
 						this.status.show = true;
+						this.resetForm();
 
-						console.log(response);
+						if (data.result) {
+							this.status.message = 'true';
+						} else {
+							this.status.message = 'false';
+						}
 					})
 					.catch(() => {
 						this.status.show = true;
 						this.status.message = 'Кажется что-то пошло не так.';
 					});
+			},
+			resetForm() {
+				this.formData.email =  '';
+				requestAnimationFrame(() => {
+					this.$refs.observer.reset();
+				});
 			}
 		}
 	}

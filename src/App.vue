@@ -1,37 +1,15 @@
 <template>
-	<div class="wrapper">
-		<div id="form">
-			<h2>Создание пользователя</h2>
-			<CrmForm/>
-			<h2>Запрос на восстановление пароля</h2>
-			<RequestResetPassword/>
-			<h2>Востановление пароля</h2>
-			<newPasswordForm/>
-		</div>
+	<div id="app">
+		<router-view/>
 	</div>
 </template>
-
-<script>
-	import CrmForm from "./components/CrmForm";
-	import newPasswordForm from "./components/newPasswordForm";
-	import RequestResetPassword from "./components/RequestResetPassword";
-
-	export default {
-		name: 'app',
-		components: {
-			CrmForm,
-			RequestResetPassword,
-			newPasswordForm
-		}
-	}
-</script>
 
 <style lang="stylus">
 	body
 		margin 0
 		box-sizing border-box
 		font-family Arial, sans-serif
-		//background linear-gradient(deeppink, rebeccapurple)
+	//background linear-gradient(deeppink, rebeccapurple)
 
 	*
 	*:before
@@ -118,6 +96,11 @@
 			margin-top 30px
 			text-align center
 		&__message
+			margin-bottom 30px
+			padding 15px
 			font-size 14px
+			font-weight bold
 			line-height 1.5
+			border-radius 3px
+			background-color #e4e4e4
 </style>
