@@ -122,10 +122,10 @@
 		</div>
 		<div class="form__footer">
 			<input
-					:disabled="!valid"
-					class="form__button"
-					type="submit"
-					value="Получить доступ">
+				:disabled="!valid"
+				class="form__button"
+				type="submit"
+				value="Получить доступ">
 			<a class="form__link" href="#">Востановить пароль</a>
 		</div>
 	</validation-observer>

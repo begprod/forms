@@ -1,5 +1,5 @@
 <template>
-	<validation-observer ref="observer" class="form" v-slot="{ valid }" tag="form">
+	<validation-observer ref="observer" class="form" v-slot="{ valid }" tag="form" v-on:submit.prevent="submitData">
 		<validation-provider rules="required|email" v-slot="{ errors, required, changed, invalid }" name="email" slim>
 			<fieldset class="form__fieldset">
 				<input
@@ -17,7 +17,7 @@
 				<span class="form__error">{{ errors[0] }}</span>
 			</fieldset>
 		</validation-provider>
-		<validation-provider :rules="{ required: true, regex:  /^(?=\S*[a-z])(?=\S*[A-Z])(?=\S*\d)\S{8,}$/, min: 8 }" v-slot="{ errors, required, changed, invalid }" name="пароль" slim>
+		<validation-provider :rules="{ required: true, regex: /^(?=\S*[a-z])(?=\S*[A-Z])(?=\S*\d)\S{8,}$/, min: 8 }" v-slot="{ errors, required, changed, invalid }" name="пароль" vid="password" slim>
 			<fieldset class="form__fieldset">
 				<input
 					:class="{
@@ -34,7 +34,7 @@
 				<span class="form__error">{{ errors[0] }}</span>
 			</fieldset>
 		</validation-provider>
-		<validation-provider :rules="{ required: true, confirmed: password, min: 8 }" v-slot="{ errors, required, changed, invalid }" name="подтверждение пароля" slim>
+		<validation-provider rules="required|confirmed:password" v-slot="{ errors, required, changed, invalid }" name="подтверждение пароля" slim>
 			<fieldset class="form__fieldset">
 				<input
 					:class="{
@@ -51,10 +51,17 @@
 				<span class="form__error">{{ errors[0] }}</span>
 			</fieldset>
 		</validation-provider>
+		<input
+				:disabled="!valid"
+				class="form__button"
+				type="submit"
+				value="Сбросить пароль">
 	</validation-observer>
 </template>
 
 <script>
+	import axios from 'axios';
+
 	export default {
 		name: "ResetPasswordForm",
 		data() {
@@ -63,7 +70,27 @@
 					email: '',
 					password: '',
 					repeatPassword: ''
+				},
+				status: {
+					show: false,
+					message: ''
 				}
+			}
+		},
+		methods: {
+			submitData() {
+				axios.post('http://localhost:8000/resetPasswordHandler.php', {
+					resetPasswordFormData: this.formData
+				})
+				.then((response) => {
+					this.status.show = true;
+
+					console.log(response);
+				})
+				.catch(() => {
+					this.status.show = true;
+					this.status.message = 'Кажется что-то пошло не так.';
+				});
 			}
 		}
 	}

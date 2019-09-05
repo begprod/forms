@@ -2,7 +2,7 @@
 	<div class="wrapper">
 <!--		<h1>Создание пользователя</h1>-->
 		<div id="form">
-<!--			<CrmForm/>-->
+			<CrmForm/>
 			<ResetPasswordForm/>
 		</div>
 	</div>
@@ -104,7 +104,7 @@
 				cursor default
 				background-color #666
 		&__link
-			display block
+			display inline-block
 			margin-top 10px
 			font-size 12px
 		&__footer
