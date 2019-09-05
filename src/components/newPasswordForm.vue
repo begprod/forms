@@ -43,7 +43,7 @@
 						'is-error': invalid,
 						'is-required': required
 					}"
-					v-model="formData.repeatPassword"
+					v-model="repeatPassword"
 					name="repeatPassword"
 					id="repeatPassword"
 					type="password">
@@ -52,10 +52,10 @@
 			</fieldset>
 		</validation-provider>
 		<input
-				:disabled="!valid"
-				class="form__button"
-				type="submit"
-				value="Сбросить пароль">
+			:disabled="!valid"
+			class="form__button"
+			type="submit"
+			value="Сбросить пароль">
 	</validation-observer>
 </template>
 
@@ -69,8 +69,8 @@
 				formData: {
 					email: '',
 					password: '',
-					repeatPassword: ''
 				},
+				repeatPassword: '',
 				status: {
 					show: false,
 					message: ''
@@ -79,8 +79,8 @@
 		},
 		methods: {
 			submitData() {
-				axios.post('http://localhost:8000/resetPasswordHandler.php', {
-					resetPasswordFormData: this.formData
+				axios.post('http://localhost:8000/newPasswordFormHandler.php', {
+					newPasswordData: this.formData
 				})
 				.then((response) => {
 					this.status.show = true;

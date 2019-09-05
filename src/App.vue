@@ -1,22 +1,27 @@
 <template>
 	<div class="wrapper">
-<!--		<h1>Создание пользователя</h1>-->
 		<div id="form">
+			<h2>Создание пользователя</h2>
 			<CrmForm/>
-			<ResetPasswordForm/>
+			<h2>Запрос на восстановление пароля</h2>
+			<RequestResetPassword/>
+			<h2>Востановление пароля</h2>
+			<newPasswordForm/>
 		</div>
 	</div>
 </template>
 
 <script>
 	import CrmForm from "./components/CrmForm";
-	import ResetPasswordForm from "./components/ResetPasswordForm";
+	import newPasswordForm from "./components/newPasswordForm";
+	import RequestResetPassword from "./components/RequestResetPassword";
 
 	export default {
 		name: 'app',
 		components: {
 			CrmForm,
-			ResetPasswordForm
+			RequestResetPassword,
+			newPasswordForm
 		}
 	}
 </script>
@@ -26,6 +31,7 @@
 		margin 0
 		box-sizing border-box
 		font-family Arial, sans-serif
+		//background linear-gradient(deeppink, rebeccapurple)
 
 	*
 	*:before
@@ -42,6 +48,7 @@
 		min-height 100vh
 
 	.form
+		background-color white
 		&__fieldset
 			position relative
 			margin 0 0 30px 0

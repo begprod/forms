@@ -125,7 +125,7 @@
 				:disabled="!valid"
 				class="form__button"
 				type="submit"
-				value="Получить доступ">
+				value="Получить доступ"/>
 			<a class="form__link" href="#">Востановить пароль</a>
 		</div>
 	</validation-observer>
