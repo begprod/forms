@@ -9,7 +9,7 @@
 		margin 0
 		box-sizing border-box
 		font-family Arial, sans-serif
-	//background linear-gradient(deeppink, rebeccapurple)
+		//background linear-gradient(deeppink, rebeccapurple)
 
 	*
 	*:before
@@ -22,7 +22,7 @@
 		justify-content center
 		max-width 700px
 		margin 0 auto
-		padding 0 30px
+		padding 30px
 		min-height 100vh
 
 	.form
@@ -70,8 +70,8 @@
 				border-color red
 		&__error
 			position absolute
+			top calc(100% + 3px)
 			left 0
-			bottom -18px
 			font-size 12px
 			color #f00
 		&__button
@@ -103,4 +103,10 @@
 			line-height 1.5
 			border-radius 3px
 			background-color #e4e4e4
+
+	@media screen and (max-width: 480px)
+		.form__fieldset
+			margin-bottom 35px
+		.form__error
+			font-size 11px
 </style>

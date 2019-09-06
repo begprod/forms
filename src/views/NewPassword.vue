@@ -9,7 +9,7 @@
 import NewPasswordForm from "@/components/NewPasswordForm";
 
 export default {
-	name: 'newpassword',
+	name: 'NewPassword',
 	components: {
 		NewPasswordForm
 	}

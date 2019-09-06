@@ -9,7 +9,7 @@
 import RequestNewPasswordForm from "@/components/RequestNewPasswordForm";
 
 export default {
-	name: 'requestnewpassword',
+	name: 'RequestNewPassword',
 	components: {
 		RequestNewPasswordForm
 	}

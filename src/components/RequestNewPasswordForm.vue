@@ -24,7 +24,7 @@
 			:disabled="!valid"
 			class="form__button"
 			type="submit"
-			value="Отправить">
+			value="Отправить запрос на восстановление пароля">
 	</validation-observer>
 </template>
 
@@ -32,7 +32,7 @@
 	import axios from 'axios';
 
 	export default {
-		name: "RequestResetPassword",
+		name: "RequestNewPasswordForm",
 		props: ['xhr'],
 		data() {
 			return {
@@ -57,7 +57,7 @@
 						this.resetForm();
 
 						if (data.result) {
-							this.status.message = 'true';
+							this.status.message = 'done';
 						} else {
 							this.status.message = 'false';
 						}

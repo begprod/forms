@@ -58,7 +58,7 @@
 			:disabled="!valid"
 			class="form__button"
 			type="submit"
-			value="Отправить запрос на восстановление пароля">
+			value="Отправить">
 	</validation-observer>
 </template>
 
@@ -91,8 +91,6 @@
 					const data = response.data;
 					this.status.show = true;
 					this.resetForm();
-
-					console.log(response);
 
 					if (data.result) {
 						this.status.message = 'Пароль успешно изменен';

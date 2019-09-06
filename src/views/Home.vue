@@ -9,7 +9,7 @@
 import crmForm from '@/components/CrmForm.vue';
 
 export default {
-  name: 'home',
+  name: 'Home',
   components: {
     crmForm
   }
