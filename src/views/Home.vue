@@ -1,17 +1,17 @@
 <template>
-  <div class="wrapper">
-    <h1>Создание портального пользователя</h1>
-    <crmForm xhr="http://localhost:8000/formHandler.php"/>
-  </div>
+	<div class="wrapper">
+		<h1>Создание портального пользователя</h1>
+		<crmForm xhr="http://localhost:8000/formHandler.php"/>
+	</div>
 </template>
 
 <script>
-import crmForm from '@/components/CrmForm.vue';
+	import crmForm from '@/components/CrmForm.vue';
 
-export default {
-  name: 'Home',
-  components: {
-    crmForm
-  }
-}
+	export default {
+		name: 'Home',
+		components: {
+			crmForm
+		}
+	}
 </script>
