@@ -1,29 +1,19 @@
 # crm-form
 
-## Project setup
+## Установка npm пакетов
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Сервер для разработки
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Сборка продакшена
 ```
 npm run build
 ```
 
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
+### Конфигурация
 See [Configuration Reference](https://cli.vuejs.org/config/).
