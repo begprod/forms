@@ -33,10 +33,9 @@
 
 	export default {
 		name: "RequestNewPasswordForm",
-		props: ['xhr'],
 		data() {
 			return {
-				xhrUrl: this.xhr,
+				xhr: this.$route.meta.xhr,
 				formData: {
 					email: ''
 				},
@@ -48,24 +47,24 @@
 		},
 		methods: {
 			submitData() {
-				axios.post(this.xhrUrl, {
+				axios.post(this.xhr, {
 					resetPasswordFormData: this.formData
 				})
-					.then((response) => {
-						const data = response.data;
-						this.status.show = true;
-						this.resetForm();
+				.then((response) => {
+					const data = response.data;
+					this.status.show = true;
+					this.resetForm();
 
-						if (data.result) {
-							this.status.message = 'done';
-						} else {
-							this.status.message = 'false';
-						}
-					})
-					.catch(() => {
-						this.status.show = true;
-						this.status.message = 'Кажется что-то пошло не так.';
-					});
+					if (data.result) {
+						this.status.message = 'done';
+					} else {
+						this.status.message = 'false';
+					}
+				})
+				.catch(() => {
+					this.status.show = true;
+					this.status.message = 'Кажется что-то пошло не так.';
+				});
 			},
 			resetForm() {
 				this.formData.email =  '';

@@ -138,10 +138,9 @@
 
 	export default {
 		name: "CrmForm",
-		props: ['xhr'],
 		data() {
 			return {
-				xhrUrl: this.xhr,
+				xhr: this.$route.meta.xhr,
 				formData: {
 					surname: '',
 					givenName: '',
@@ -159,7 +158,7 @@
 		},
 		methods: {
 			submitData() {
-				axios.post(this.xhrUrl, {
+				axios.post(this.xhr, {
 					webFormData: this.formData
 				})
 				.then((response) => {

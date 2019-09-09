@@ -67,10 +67,9 @@
 
 	export default {
 		name: "NewPasswordForm",
-		props: ['xhr'],
 		data() {
 			return {
-				xhrUrl: this.xhr,
+				xhr: this.$route.meta.xhr,
 				formData: {
 					email: '',
 					password: '',
@@ -84,7 +83,7 @@
 		},
 		methods: {
 			submitData() {
-				axios.post(this.xhrUrl, {
+				axios.post(this.xhr, {
 					newPasswordData: this.formData
 				})
 				.then((response) => {

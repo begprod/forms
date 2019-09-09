@@ -11,17 +11,26 @@ export default new Router({
 		{
 			path: '/',
 			name: 'home',
-			component: Home
+			component: Home,
+			meta: {
+				xhr: document.querySelector('#app').getAttribute('data-new-user-xhr')
+			}
 		},
 		{
 			path: '/request-new-password',
 			name: 'requestnewpassword',
-			component: RequestNewPassword
+			component: RequestNewPassword,
+			meta: {
+				xhr: document.querySelector('#app').getAttribute('data-req-pass-xhr')
+			},
 		},
 		{
 			path: '/new-password',
 			name: 'newpassword',
-			component: NewPassword
+			component: NewPassword,
+			meta: {
+				xhr: document.querySelector('#app').getAttribute('data-new-pass-xhr')
+			}
 		}
 	]
 })
